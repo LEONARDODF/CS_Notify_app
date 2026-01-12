@@ -1,9 +1,9 @@
 const axios = require('axios');
 const readline = require('readline-sync');
-
+///teste
 const API_TOKEN = 'uTruXGyrzwCOR2zARrjlfS8_eX6i8lgqpMtssDMbq0p0XdF-_Gk';
 const BASE_URL = 'https://api.pandascore.co';
-
+///teste
 async function buscarTime(nomeTime) {
   try {
     console.log(`\n🔍 Buscando: "${nomeTime}"...\n`);
@@ -35,7 +35,7 @@ async function buscarTime(nomeTime) {
     console.error('❌ Erro:', error.message);
   }
 }
-
+///teste
 // Input interativo
 console.log('🎮 Buscar Times de Counter-Strike\n');
 const nomeTime = readline.question('Digite o nome do time: ');
@@ -44,5 +44,6 @@ if (nomeTime.trim() === '') {
   console.log('❌ Você precisa digitar um nome!');
   process.exit(1);
 }
-
+///teste
+///teste
 buscarTime(nomeTime);
