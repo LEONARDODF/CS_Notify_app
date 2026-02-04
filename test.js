@@ -111,7 +111,7 @@ async function buscarPeloId(IdTime) {
     console.error('❌ Erro:', error.message);
   }
 }
-
+///running pt
 async function buscarPartida(IdPt) {
   try {
     console.log(`\n🔍 Buscando Partidas com ID: "${IdPt}"...\n`);
@@ -134,6 +134,7 @@ async function buscarPartida(IdPt) {
 
     console.log(`✅ Partida Encontrada\n`);
     console.log(`Nome: ${match.name}`);
+    console.log(`Status: ${match.status}`);
     console.log(`Liga: ${match.league?.name}`);
     console.log(`Torneio: ${match.tournament?.name}`);
     console.log(`Série: ${match.serie?.full_name}`);
