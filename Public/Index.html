@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CS2 Notifier - Nunca perca uma partida</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header-top">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center py-3">
+                <div class="logo">
+                    <h1 class="mb-0"><span class="text-white">CS2</span> <span class="text-orange">Notifier</span></h1>
+                    <p class="tagline mb-0">Nunca perca uma partida do seu time favorito</p>
+                </div>
+                <button class="btn-live">
+                    <i class="bi bi-broadcast"></i> <span class="live-count">2</span> PARTIDAS AO VIVO
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs (TOPO) -->
+    <nav class="nav-tabs-custom">
+        <div class="container">
+            <ul class="nav nav-pills" id="mainNav">
+                <li class="nav-item">
+                    <a class="nav-link active" data-page="matches" href="#"><i class="bi bi-trophy"></i> Todas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="live" href="#"><i class="bi bi-broadcast"></i> Ao Vivo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="upcoming" href="#"><i class="bi bi-calendar-event"></i> Em Breve</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-page="favorites" href="#"><i class="bi bi-star"></i> Favoritos</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container mt-4 pb-5">
+        <!-- ✅ CONTAINER PRINCIPAL DE PARTIDAS -->
+        <section id="matches-section">
+            <!-- Live Matches -->
+            <div id="live-section">
+                <div class="section-title">
+                    <h3><i class="bi bi-broadcast text-danger"></i> Ao Vivo</h3>
+                </div>
+                <div id="live-matches-container">
+                    <div class="loading-spinner">
+                        <i class="bi bi-hourglass-split"></i>
+                        <p>Carregando partidas ao vivo...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Próximas Partidas -->
+            <div id="upcoming-section" class="mt-4">
+                <div class="section-title">
+                    <h3><i class="bi bi-calendar-event"></i> Próximas Partidas</h3>
+                </div>
+                <div id="upcoming-matches-container">
+                    <div class="loading-spinner">
+                        <i class="bi bi-hourglass-split"></i>
+                        <p>Carregando próximas partidas...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ✅ CONTAINER FAVORITOS -->
+        <section id="favorites-section" style="display: none;">
+            <div class="section-title">
+                <h3><i class="bi bi-star-fill text-warning"></i> Times Favoritos</h3>
+            </div>
+            <div class="favorites-empty">
+                <i class="bi bi-star" style="font-size: 4rem; opacity: 0.3;"></i>
+                <p>Adicione times aos favoritos para acompanhar suas partidas</p>
+                <p class="text-muted">Clique no <i class="bi bi-star"></i> nas partidas</p>
+            </div>
+            <div id="favorites-list"></div>
+        </section>
+
+        <!-- ✅ CONTAINER NOTIFICAÇÕES (NOVO!) -->
+        <section id="notifications-section" style="display: none;">
+            <!-- Conteúdo será injetado aqui pelo showNotifications() -->
+        </section>
+
+        <!-- ✅ CONTAINER CONFIG (NOVO!) -->
+        <section id="config-section" style="display: none;">
+            <!-- Conteúdo será injetado aqui pelo showConfig() -->
+        </section>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" data-page="matches">
+            <i class="bi bi-trophy"></i>
+            <span>Partidas</span>
+        </a>
+        <a href="#" class="nav-item" data-page="favorites">
+            <i class="bi bi-people"></i>
+            <span>Times</span>
+        </a>
+        <a href="#" class="nav-item" id="add-btn">
+            <div class="add-button">
+                <i class="bi bi-plus-lg"></i>
+            </div>
+        </a>
+        <a href="#" class="nav-item" data-page="notifications">
+            <i class="bi bi-bell"></i>
+            <span>Notificações</span>
+        </a>
+        <a href="#" class="nav-item" data-page="config">
+            <i class="bi bi-gear"></i>
+            <span>Config</span>
+        </a>
+    </nav>
+
+    <!-- Modal Add Team -->
+    <div class="modal fade" id="addTeamModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="bi bi-plus-circle"></i> Adicionar Time</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Receba notificações quando seus times jogarem</p>
+                    <input type="text" class="form-control" id="teamSearch" placeholder="Buscar time...">
+                    <div class="team-suggestions mt-3">
+                        <div class="team-suggestion" data-team="FURIA">
+                            <i class="bi bi-star"></i> FURIA
+                        </div>
+                        <div class="team-suggestion" data-team="Imperial">
+                            <i class="bi bi-star"></i> Imperial
+                        </div>
+                        <div class="team-suggestion" data-team="NaVi">
+                            <i class="bi bi-star"></i> Natus Vincere
+                        </div>
+                        <div class="team-suggestion" data-team="FaZe">
+                            <i class="bi bi-star"></i> FaZe Clan
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
