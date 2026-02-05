@@ -155,13 +155,166 @@ async function buscarPartida(IdPt) {
   }
 }
 
+async function PartidasRolando() {
+  try {
+    console.log('\n🔴 Buscando partidas ao vivo...\n');
+
+    const response = await axios.get(`${BASE_URL}/csgo/matches/running`, {
+      headers: { 'Authorization': `Bearer ${API_TOKEN}` }
+    });
+
+    if (response.data.length === 0) {
+      console.log('❌ Nenhuma partida ao vivo no momento');
+      return;
+    }
+    console.log(`✅ ${response.data.length} partida(s) ao vivo\n`);
+
+    // Filtra as partidas
+    const matchesFiltradas = response.data.map(match => {
+      const time1 = match.opponents?.[0]?.opponent?.name || 'N/A';
+      const time2 = match.opponents?.[1]?.opponent?.name || 'N/A';
+      const dateAPI = match.scheduled_at;
+      const data = new Date(dateAPI);
+
+      console.log(`Nome: ${match.name}`);
+      console.log(`Times: ${time1} vs ${time2}`);
+      console.log(`Liga: ${match.league?.name}`);
+      console.log(`Status: ${match.status}`);
+      console.log(`Torneio: ${match.tournament?.name}`);
+      console.log(`Série: ${match.serie?.full_name}`);
+      console.log(`Horário: ${data.toLocaleDateString('pt-BR')} ${data.toLocaleTimeString('pt-BR')}\n`)
+
+    });
+
+    console.log('');
+
+  } catch (error) {
+    console.error('❌ Erro:', error.message);
+  }
+};
+
+async function PartidasFuturas() {
+  try {
+    console.log('\n🔴 Buscando partidas futuras...\n');
+
+    const response = await axios.get(`${BASE_URL}/csgo/matches/upcoming`, {
+      headers: { 'Authorization': `Bearer ${API_TOKEN}` }
+    });
+
+    if (response.data.length === 0) {
+      console.log('❌ Nenhuma partida futura no momento');
+      return;
+    }
+    console.log(`✅ ${response.data.length} partida(s) futura(s)\n`);
+
+    // Filtra as partidas
+    const matchesFiltradas = response.data.map(match => {
+      const time1 = match.opponents?.[0]?.opponent?.name || 'N/A';
+      const time2 = match.opponents?.[1]?.opponent?.name || 'N/A';
+      const dateAPI = match.scheduled_at;
+      const data = new Date(dateAPI);
+
+      console.log(`Nome: ${match.name}`);
+      console.log(`Times: ${time1} vs ${time2}`);
+      console.log(`Liga: ${match.league?.name}`);
+      console.log(`Status: ${match.status}`);
+      console.log(`Torneio: ${match.tournament?.name}`);
+      console.log(`Série: ${match.serie?.full_name}`);
+      console.log(`Horário: ${data.toLocaleDateString('pt-BR')} ${data.toLocaleTimeString('pt-BR')}\n`)
+
+    });
+
+    console.log('');
+
+  } catch (error) {
+    console.error('❌ Erro:', error.message);
+  }
+};
+
+async function PartidasRolando_Futuras() {
+  try {
+    console.log('\n🔴 Buscando partidas ao vivo...\n');
+
+    const response = await axios.get(`${BASE_URL}/csgo/matches/running`, {
+      headers: { 'Authorization': `Bearer ${API_TOKEN}` }
+    });
+
+    if (response.data.length === 0) {
+      console.log('❌ Nenhuma partida ao vivo no momento');
+      return;
+    }
+    console.log(`✅ ${response.data.length} partida(s) ao vivo\n`);
+
+    // Filtra as partidas
+    const matchesFiltradas = response.data.map(match => {
+      const time1 = match.opponents?.[0]?.opponent?.name || 'N/A';
+      const time2 = match.opponents?.[1]?.opponent?.name || 'N/A';
+      const dateAPI = match.scheduled_at;
+      const data = new Date(dateAPI);
+
+      console.log(`Nome: ${match.name}`);
+      console.log(`Times: ${time1} vs ${time2}`);
+      console.log(`Liga: ${match.league?.name}`);
+      console.log(`Status: ${match.status}`);
+      console.log(`Torneio: ${match.tournament?.name}`);
+      console.log(`Série: ${match.serie?.full_name}`);
+      console.log(`Horário: ${data.toLocaleDateString('pt-BR')} ${data.toLocaleTimeString('pt-BR')}\n`)
+
+    });
+
+    console.log('');
+
+  } catch (error) {
+    console.error('❌ Erro:', error.message);
+  }
+
+   try {
+    console.log('\n🔴 Buscando partidas futuras...\n');
+
+    const response = await axios.get(`${BASE_URL}/csgo/matches/upcoming`, {
+      headers: { 'Authorization': `Bearer ${API_TOKEN}` }
+    });
+
+    if (response.data.length === 0) {
+      console.log('❌ Nenhuma partida futura no momento');
+      return;
+    }
+    console.log(`✅ ${response.data.length} partida(s) futura(s)\n`);
+
+    // Filtra as partidas
+    const matchesFiltradas = response.data.map(match => {
+      const time1 = match.opponents?.[0]?.opponent?.name || 'N/A';
+      const time2 = match.opponents?.[1]?.opponent?.name || 'N/A';
+      const dateAPI = match.scheduled_at;
+      const data = new Date(dateAPI);
+
+      console.log(`Nome: ${match.name}`);
+      console.log(`Times: ${time1} vs ${time2}`);
+      console.log(`Liga: ${match.league?.name}`);
+      console.log(`Status: ${match.status}`);
+      console.log(`Torneio: ${match.tournament?.name}`);
+      console.log(`Série: ${match.serie?.full_name}`);
+      console.log(`Horário: ${data.toLocaleDateString('pt-BR')} ${data.toLocaleTimeString('pt-BR')}\n`)
+
+    });
+
+    console.log('');
+
+  } catch (error) {
+    console.error('❌ Erro:', error.message);
+  }
+};
+
 async function main() {
 
   console.log('O que deseja fazer?\n',
     '1: Buscar time pelo nome\n',
     '2: Buscar time pelo id\n',
     '3: Buscar partidas do time pelo id\n',
-    '4: Encerrar programa\n'
+    '4: Buscar partidas ao vivo\n',
+    '5: Buscar partidas futuras\n',
+    '6: Buscar partidas ao vivo e futuras\n',
+    '7: Encerrar programa\n'
   );
   const opcao = readline.question('Escolha uma opcao: ');
 
@@ -172,6 +325,12 @@ async function main() {
   } else if (opcao.trim() === '3') {
     op3();
   } else if (opcao.trim() === '4') {
+    PartidasRolando();
+  } else if (opcao.trim() === '5') {
+    PartidasFuturas();
+  } else if (opcao.trim() === '6') {
+    PartidasRolando_Futuras();
+  } else if (opcao.trim() === '7') {
     console.log(' Programa encerrado!');
     process.exit(0);
   } else { console.log('❌ Opcao invalida, programa encerrado'); return; }
